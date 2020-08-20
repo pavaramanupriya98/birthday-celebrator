@@ -14,7 +14,7 @@ bootstrap and run the development server using `yarn develop`.
 Since this starter using the [netlify-dev](https://www.netlify.com/products/dev/#how-it-works), there could be further issues you, please check the [netlify-dev](https://github.com/netlify/netlify-dev) repository for further information and set up questions. 
 
 ```sh
-$ git clone https://github.com/netlify-templates/gatsby-starter-netlify-cms
+$ git clone git@github.com:briashta/birthday-celebrator.git
 $ yarn 
 ```
 
@@ -82,12 +82,6 @@ yarn format
 
 ## Pull Requests
 
-We actively welcome your pull requests!
-
-If you need help with Git or our workflow, please ask on [Gitter.im](https://gitter.im/netlify/NetlifyCMS). We want your contributions even if you're just learning Git. Our maintainers are happy to help!
-
-Netlify CMS uses the [Forking Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow) + [Feature Branches](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Additionally, PR's should be [rebased](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) on master when opened, and again before merging.
-
 1. Fork the repo.
 2. Create a branch from `master`. If you're addressing a specific issue, prefix your branch name with the issue number.
 2. If you've added code that should be tested, add tests.
@@ -99,5 +93,5 @@ Netlify CMS uses the [Forking Workflow](https://www.atlassian.com/git/tutorials/
 
 ## License
 
-By contributing to the Gatsby - Netlify CMS starter, you agree that your contributions will be licensed
+By contributing to the birthday celebrator, you agree that your contributions will be licensed
 under its [MIT license](LICENSE).
