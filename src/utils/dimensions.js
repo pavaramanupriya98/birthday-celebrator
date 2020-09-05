@@ -15,6 +15,8 @@ export default (canvas) => {
 
   updateCanvasDimensions();
 
-  window.addEventListener("resize", updateCanvasDimensions);
+  if (typeof window !== 'undefined') {
+    window.addEventListener("resize", updateCanvasDimensions);
+  }
 }
 
