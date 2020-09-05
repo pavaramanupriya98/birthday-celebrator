@@ -1,4 +1,5 @@
 import Shape from "./Shape";
+import Arrow from "./Arrow";
 
 export default class ArrowStrip extends Shape {
   constructor(
@@ -36,32 +37,13 @@ export default class ArrowStrip extends Shape {
 
 
   draw() {
-    const {ctx, x, y, arrows, alpha} = this;
+    const { ctx, x, y, arrows, alpha } = this;
 
     ctx.save();
     ctx.translate(x, y);
-    ctx.fillStyle = '#00a0fe';
-    ctx.strokeStyle = '#00a0fe';
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.lineWidth = 3;
-    ctx.globalAlpha = alpha
+    ctx.globalAlpha = alpha;
     for(let i = 0; i < 3; i++) {
-      ctx.save();
-      ctx.translate(0, 50*i);
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(10, 0);
-      ctx.lineTo(10, 25);
-      ctx.lineTo(15, 25);
-      ctx.lineTo(0, 40);
-      ctx.lineTo(-15, 25);
-      ctx.lineTo(-10, 25);
-      ctx.lineTo(-10, 0);
-      ctx.closePath();
-      ctx.stroke();
-      arrows[i] && ctx.fill();
-      ctx.restore();
+      Arrow(ctx, 0, 50*i, arrows[i]);
     }
     ctx.restore();
   }
