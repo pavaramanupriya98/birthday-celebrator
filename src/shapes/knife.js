@@ -1,10 +1,44 @@
 import radians from "../utils/radians";
+import getMouseCoords from "../utils/mouseCoords";
+import Shape from "./Shape";
+import { getCanvasHeight } from "../utils/dimensions";
 
-const knifeColor = '#555555';
+const KNIFE_COLOR = '#555555';
 
-export default function knife(ctx, x, y, step) {
+export default class Knife extends Shape {
+  constructor(
+    x, 
+    y = 0,
+  ) {
+    super();
+    const { mouseY } = getMouseCoords();
+    this.x = x;
+    this.initY = (getCanvasHeight()/2) - 200;
+    this.y = this.initY;
+    this.initMouseCoords = mouseY;
+    this.animate = true;
+  }
+
+  update() {
+    if(!this.animate) return;
+    const { mouseY } = getMouseCoords();
+    this.y = Math.min(mouseY, this.initY + 120);
+  }
+
+  getPosition() {
+    const { x, y } = this;
+    return { x, y };
+  }
+
+  stopAnimating() {
+    this.animate = false;
+  }
+
+  draw(step) {
+    const { ctx, x, y } = this;
+
     ctx.save();
-    ctx.fillStyle = knifeColor;
+    ctx.fillStyle = KNIFE_COLOR;
     ctx.beginPath();
     ctx.translate(x, y);
     step === 1 && ctx.rotate(radians(45));
@@ -19,3 +53,4 @@ export default function knife(ctx, x, y, step) {
     ctx.fill();
     ctx.restore();
   }
+}

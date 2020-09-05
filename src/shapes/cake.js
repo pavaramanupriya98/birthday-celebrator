@@ -1,20 +1,16 @@
-import cylinder from './cylinder';
-import { getCanvasWidth, getCanvasHeight } from "../utils/dimensions";
+import CylinderStack from './CylinderStack';
+import radians from '../utils/radians';
 
 const CAKE_INNER_COLOR = '#ffffe0';
 const CAKE_OUTER_COLOR = "#ffcce0";
-export default function cake(ctx, startAngle=0, endAngle=Math.PI * 2) {
-    ctx.save()
-    ctx.fillStyle = CAKE_INNER_COLOR;
-    ctx.strokeStyle = CAKE_OUTER_COLOR;
-    cylinder(
-      ctx,
-      getCanvasWidth()/2,
-      getCanvasHeight()/2 + 400,
-      200,
-      200,
-      startAngle,
-      endAngle,
+
+export default class Cake extends CylinderStack { 
+
+  constructor(
+    x, y, startAngle=0, endAngle=radians(360),
+  ) {
+    super(
+      x, y + 400, 200, 200, startAngle, endAngle, CAKE_INNER_COLOR, CAKE_OUTER_COLOR
     );
-    ctx.restore()
   }
+}
