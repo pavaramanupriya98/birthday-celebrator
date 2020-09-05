@@ -38,10 +38,13 @@ export default () => {
     radians(180),
   );
 
+  const blowCandleText = new Text("Blow the candles by moving the blower near each candle", getCanvasWidth()/2, getCanvasHeight()*0.75, 1);
+  const cakeCutText = new Text("Cut the cake", getCanvasWidth()/2, getCanvasHeight()*0.75, 1);
+
   const candles = [
-    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 - 60),
     new Candle(getCanvasWidth()/2 + 80, getCanvasHeight()/2 - 180),
     new Candle(getCanvasWidth()/2 - 80, getCanvasHeight()/2 - 180),
+    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 - 60),
   ];
 
   const fan = new CandleBlower(getCanvasWidth()/4, getCanvasHeight()/4);
@@ -64,6 +67,7 @@ export default () => {
       }
 
       case sceneStates.CANDLE_BLOWING: {
+        blowCandleText.draw();
         backCakeSlice.draw();
         acuteCakeSlice.draw();
         obtuseCakeSlice.draw();
@@ -73,11 +77,13 @@ export default () => {
       }
 
       case sceneStates.CAKE_CUTTING: {
+        cakeCutText.draw();
         backCakeSlice.draw();
+        candles.slice(0, 2).forEach(candle => candle.draw());
         knife.draw();
         acuteCakeSlice.draw();
-        // step === 1 && knife(ctx, getCanvasWidth()/2 + 150, mouseY, step);
         obtuseCakeSlice.draw();
+        candles.slice(2).forEach(candle => candle.draw());
         arrowStrip.draw()
         birthdayWish.draw();
         break;
@@ -100,10 +106,12 @@ export default () => {
           candle.update();
         });
         fan.update();
+        blowCandleText.update();
 
         candles.forEach(candle => {
           if(distance(candle.getPosition(), fan.getPosition()) < 40) {
             candle.extinguish();
+            blowCandleText.hide();
           }
         });
 
@@ -117,10 +125,12 @@ export default () => {
         knife.update();
         arrowStrip.update();
         birthdayWish.update();
+        cakeCutText.update();
         const { y } = knife.getPosition();
         if(knife.animate && (y >= getCanvasHeight()/2 - 90)) {
           knife.stopAnimating()
           arrowStrip.fillAll();
+          cakeCutText.hide();
           birthdayWish.show();
         }
         break;
