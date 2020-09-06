@@ -2,7 +2,8 @@ module.exports = {
   siteMetadata: {
     title: 'Birthday Covid - Celebrate birthday online',
     description:
-      'Your one stop solution for celebrating birthday online with friends',
+      'Celebrate birthday online with friends by cutting a virtual cake | BirthdayCovid',
+    siteUrl: 'https://birthdaycovid.com'
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -60,12 +61,19 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || "none",
+      },
+    },
+    {
       resolve: 'gatsby-plugin-purgecss', // purges all unused/unreferenced css rules
       options: {
         develop: true, // Activates purging in npm run develop
         purgeOnly: ['/all.sass'], // applies purging only on the bulma css file
       },
     }, // must be after other CSS plugins
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-netlify', // make sure to keep it last in the array
   ],
 }
