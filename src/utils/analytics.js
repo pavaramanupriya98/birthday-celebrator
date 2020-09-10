@@ -1,9 +1,9 @@
 export const EventLabels = Object.freeze({
-    CAKE: Symbol("Cake")
+    CAKE: "Cake"
 });
 
 export const EventNames = Object.freeze({
-    AUDIO_INITIALIZED: Symbol("Audio Initialized")
+    AUDIO_INITIALIZED: "Audio Initialized"
 });
 
 export function sendClickEvent(eventLabel, eventAction) {
