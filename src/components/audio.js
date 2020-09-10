@@ -1,3 +1,5 @@
+import { sendCustomEvent, EventLabels, EventNames } from '../utils/analytics';
+
 export default () => {
   const audioElement = document.querySelector('audio');
 
@@ -17,4 +19,5 @@ export default () => {
   }
 
   audioElement.play();
+  sendCustomEvent(EventLabels.CAKE, EventNames.AUDIO_INITIALIZED);
 }
