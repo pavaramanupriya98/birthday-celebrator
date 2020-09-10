@@ -4,6 +4,8 @@
 
 This site follows the [JAMstack architecture](https://jamstack.org) by using Git as a single source of truth, and [Netlify](https://www.netlify.com) for continuous deployment, and CDN distribution.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/eb857c5f-d438-43ff-b854-29305fa33aea/deploy-status)](https://app.netlify.com/sites/birthday-covid/deploys)
+
 ## Prerequisites
 
 - Node (I recommend using v8.2.0 or higher)
