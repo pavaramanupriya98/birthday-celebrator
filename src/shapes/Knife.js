@@ -1,28 +1,39 @@
 import radians from "../utils/radians";
 import getMouseCoords from "../utils/mouseCoords";
 import Shape from "./Shape";
-import { getCanvasHeight } from "../utils/dimensions";
+import { sendDragEvent, EventLabels, EventNames } from "../utils/analytics";
+import callOnce from "../utils/callOnce";
 
 const KNIFE_COLOR = '#555555';
 
+const sendDragEventOnce = callOnce(sendDragEvent);
+
 export default class Knife extends Shape {
   constructor(
-    x, 
-    y = 0,
+    x,
+    initY = 0,
+    highBound = -100,
+    lowBound = 100,
   ) {
     super();
     const { mouseY } = getMouseCoords();
     this.x = x;
-    this.initY = (getCanvasHeight()/2) - 200;
+    this.initY = initY - 25;
     this.y = this.initY;
     this.initMouseCoords = mouseY;
     this.animate = true;
+    this.highBound = highBound;
+    this.lowBound = lowBound;
   }
 
   update() {
     if(!this.animate) return;
     const { mouseY } = getMouseCoords();
-    this.y = Math.min(mouseY, this.initY + 120);
+    if(this.y !== mouseY) {
+      sendDragEventOnce(EventLabels.CAKE, EventNames.KNIFE_DRAGGED);
+    }
+
+    this.y = Math.max(this.highBound, Math.min(mouseY, this.initY + this.lowBound));
   }
 
   getPosition() {
