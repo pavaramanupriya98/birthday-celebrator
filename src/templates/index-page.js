@@ -17,7 +17,14 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      <div>
+      <div
+        className="mobile-placeholder is-hidden-desktop container is-fluid"
+      >
+        <div className="mobile-placeholder__text">
+          Please switch to desktop, birthday person!
+        </div>
+      </div>
+      <div className="is-hidden-touch">
           <canvas />
           <audio src={sound}/>
       </div>
