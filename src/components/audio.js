@@ -18,6 +18,6 @@ export default () => {
     audioContext.resume();
   }
 
-  audioElement.play();
-  sendCustomEvent(EventLabels.CAKE, EventNames.AUDIO_INITIALIZED);
+  // audioElement.play();
+  // sendCustomEvent(EventLabels.CAKE, EventNames.AUDIO_INITIALIZED);
 }
