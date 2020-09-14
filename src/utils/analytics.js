@@ -1,13 +1,9 @@
 export const EventLabels = Object.freeze({
-    CAKE: "Cake",
+    CAKE: "Cake"
 });
 
 export const EventNames = Object.freeze({
-    AUDIO_INITIALIZED: "Audio Initialized",
-    CANDLE_BLOWN: "Candle Blown",
-    CAKE_CUT: "Cake Cut",
-    BLOWER_DRAGGED: "Blower Dragged",
-    KNIFE_DRAGGED: "Knife Dragged",
+    AUDIO_INITIALIZED: "Audio Initialized"
 });
 
 export function sendClickEvent(eventLabel, eventAction) {

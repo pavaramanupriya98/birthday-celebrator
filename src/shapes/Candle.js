@@ -8,11 +8,8 @@ setInterval(() => {
 }, 100);
 
 export default class Candle extends Shape {
-  static noOfCandles = 0;
-
   constructor(x, y) {
     super();
-    this.id = Candle.noOfCandles++;
     this.x = x;
     this.y = y;
     this.flameHeight = 20;
