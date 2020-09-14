@@ -17,7 +17,6 @@ export default function Arrow(ctx, x, y, fill, scale = 1) {
     ctx.lineTo(-10, 25);
     ctx.lineTo(-10, 0);
     ctx.closePath();
-    ctx.stroke();
-    fill && ctx.fill();
+    fill ? ctx.fill() : ctx.stroke();
     ctx.restore();
 }
