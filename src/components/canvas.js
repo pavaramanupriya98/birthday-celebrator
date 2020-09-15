@@ -36,9 +36,9 @@ export default () => {
   const cakeCutText = new Text("Cut the cake", getCanvasWidth()/2, getCanvasHeight()*0.75, 1);
 
   const candles = [
-    new Candle(getCanvasWidth()/2 + 80, getCanvasHeight()/2 - 180),
-    new Candle(getCanvasWidth()/2 - 80, getCanvasHeight()/2 - 180),
-    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 - 60),
+    new Candle(getCanvasWidth()/2 + 80, getCanvasHeight()/2 - 40),
+    new Candle(getCanvasWidth()/2 - 80, getCanvasHeight()/2 - 40),
+    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 + 60),
   ];
 
   const fan = new CandleBlower(getCanvasWidth()/4, getCanvasHeight()/4);

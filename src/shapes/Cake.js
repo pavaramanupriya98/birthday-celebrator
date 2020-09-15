@@ -10,7 +10,7 @@ export default class Cake extends CylinderStack {
     x, y, startAngle=0, endAngle=radians(360),
   ) {
     super(
-      x, y + 400, 200, 200, startAngle, endAngle, CAKE_INNER_COLOR, CAKE_OUTER_COLOR
+      x, y, 200, 200, startAngle, endAngle, CAKE_INNER_COLOR, CAKE_OUTER_COLOR
     );
   }
 }
