@@ -119,6 +119,7 @@ export default () => {
         const { y } = knife.getPosition();
         if(knife.animate && (y >= getCanvasHeight()/2 - 90)) {
           knife.stopAnimating()
+          sendCustomEvent(EventLabels.CAKE, EventNames.CAKE_CUT);
           arrowStrip.fillAll();
           cakeCutText.hide();
           birthdayWish.show();
