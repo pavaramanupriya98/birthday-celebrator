@@ -117,8 +117,8 @@ export default () => {
         arrowStrip.update();
         cakeCutText.update();
         const { y } = knife.getPosition();
-        if(knife.animate && (y >= getCanvasHeight()/2 - 90)) {
-          knife.stopAnimating()
+        if(knife.animate && (y > knife.initY + knife.lowBound - 2)) {
+          knife.stopAnimating();
           sendCustomEvent(EventLabels.CAKE, EventNames.CAKE_CUT);
           arrowStrip.fillAll();
           cakeCutText.hide();
