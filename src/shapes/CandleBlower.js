@@ -3,6 +3,11 @@ import radians from "../utils/radians";
 import getMouseCoords from "../utils/mouseCoords";
 import Arrow from "./Arrow";
 
+import { sendDragEvent, EventLabels, EventNames } from "../utils/analytics";
+import callOnce from "../utils/callOnce";
+
+const sendDragEventOnce = callOnce(sendDragEvent);
+
 const FAN_COLOR = '#777777';
 
 export default class CandleBlower extends Shape {
@@ -17,7 +22,15 @@ export default class CandleBlower extends Shape {
 
   update() {
     const { mouseX, mouseY } = getMouseCoords();
+    const { x, y } = this;
     if(mouseX && mouseY) {
+      if(
+        x !== mouseX ||
+        y !== mouseY
+      ) {
+        sendDragEventOnce(EventLabels.CAKE, EventNames.BLOWER_DRAGGED);
+      }
+
       this.x = mouseX;
       this.y = mouseY;
     }
