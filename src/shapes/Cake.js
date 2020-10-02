@@ -2,7 +2,7 @@ import CylinderStack from './CylinderStack';
 import radians from '../utils/radians';
 
 const CAKE_INNER_COLOR = '#ffffe0';
-const CAKE_OUTER_COLOR = "#ffcce0";
+const CAKE_OUTER_COLOR = '#ffcce0';
 
 export default class Cake extends CylinderStack { 
 

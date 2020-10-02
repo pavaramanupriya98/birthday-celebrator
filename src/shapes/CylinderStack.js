@@ -50,6 +50,8 @@ export default class CylinderStack extends Shape {
     ctx.fill();
     
     ctx.fillStyle = fillColor;
+    ctx.strokeStyle = fillColor;
+    ctx.lineWidth = 0;
     ctx.save();
     ctx.scale(1, 0.5);
     ctx.beginPath();
@@ -59,6 +61,7 @@ export default class CylinderStack extends Shape {
     ctx.closePath();
     ctx.restore();
     ctx.fill();
+    ctx.stroke();
     
     ctx.restore();
   }
