@@ -46,7 +46,7 @@ export default () => {
   const knife = new Knife(getCanvasWidth()/2 + 150, getCanvasHeight()/2, 80);
   const arrowStrip = new ArrowStrip(getCanvasWidth()/2 + 350, getCanvasHeight()/2);
 
-  const birthdayWish = new Text("Happy Birthday!", getCanvasWidth()/2, getCanvasHeight()*0.2, 100);
+  const birthdayWishText = new Text("Happy Birthday!", getCanvasWidth()/2, getCanvasHeight()*0.25);
 
   function draw() {
     background.draw();
@@ -75,8 +75,7 @@ export default () => {
         knife.draw();
         frontCakeSlice.draw();
         candles.slice(2).forEach(candle => candle.draw());
-        arrowStrip.draw()
-        birthdayWish.draw();
+        birthdayWishText.draw();
         break;
       }
 
@@ -116,13 +115,14 @@ export default () => {
         knife.update();
         arrowStrip.update();
         cakeCutText.update();
+        birthdayWishText.update();
         const { y } = knife.getPosition();
         if(knife.animate && (y > knife.initY + knife.lowBound - 2)) {
           knife.stopAnimating();
           sendCustomEvent(EventLabels.CAKE, EventNames.CAKE_CUT);
           arrowStrip.fillAll();
           cakeCutText.hide();
-          birthdayWish.show();
+          birthdayWishText.show();
         }
         break;
       }

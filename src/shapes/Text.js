@@ -16,9 +16,8 @@ export default class Text extends Shape {
     this.alphaSpeed = speed;
   }
 
-  hide(speed = -0.1) {
-    this.alphaSpeed = speed;
-    // console.log(this.alphaSpeed);
+  hide(speed = 0.1) {
+    this.alphaSpeed = -speed;
   }
 
   update() {
