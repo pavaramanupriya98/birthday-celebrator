@@ -10,7 +10,7 @@ setInterval(() => {
 export default class Candle extends Shape {
   static noOfCandles = 0;
 
-  constructor(x, y) {
+  constructor(x, y, color) {
     super();
     this.id = Candle.noOfCandles++;
     this.x = x;
@@ -22,6 +22,7 @@ export default class Candle extends Shape {
     this.alphaSpeed = 0;
     this.wickLength = 30;
     this.candleHeight = 70;
+    this.color = color;
   }
 
   extinguish() {
@@ -63,7 +64,7 @@ export default class Candle extends Shape {
 
   draw() {
     const { 
-      ctx, x, y, flameHeight, alpha, wickLength, candleHeight
+      ctx, x, y, flameHeight, alpha, wickLength, candleHeight, color
     } = this;
 
     const candleRadius = 10;
@@ -73,7 +74,7 @@ export default class Candle extends Shape {
     ctx.save()
 
     // Candle
-    ctx.fillStyle = '#00a0fe';
+    ctx.fillStyle = color;
     ctx.translate(x, y - (candleHeight+wickLength)/2);
     ctx.scale(1, 0.5);
     ctx.beginPath();

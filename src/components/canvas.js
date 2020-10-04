@@ -11,6 +11,7 @@ import distance from "../utils/distance";
 import ArrowStrip from "../shapes/ArrowStrip";
 import Text from "../shapes/Text";
 import { sendCustomEvent, EventLabels, EventNames } from "../utils/analytics";
+import { resetDrag } from "../utils/mouseCoords";
 
 export default () => {
   const canvas = document.querySelector('canvas');
@@ -32,21 +33,44 @@ export default () => {
     radians(180),
   );
 
-  const blowCandleText = new Text("Blow the candles by moving the blower near each candle", getCanvasWidth()/2, getCanvasHeight()*0.8, 1);
-  const cakeCutText = new Text("Cut the cake", getCanvasWidth()/2, getCanvasHeight()*0.8, 1);
+  const blowCandleText = new Text({
+    text: "Blow the candles by moving the blower near each candle",
+    x: getCanvasWidth()/2,
+    y: getCanvasHeight()*0.8,
+    alpha: 1,
+    font: '2.5rem Nunito',
+    color: '#132743',
+  });
+  const cakeCutText = new Text({
+    text: "Cut the cake",
+    x: getCanvasWidth()/2,
+    y: getCanvasHeight()*0.8,
+    alpha: 1,
+    font: '2.5rem Nunito',
+    color: '#132743',
+  });
+  
+  const birthdayWishText = new Text({
+    text: "Happy Birthday!",
+    x: getCanvasWidth()/2,
+    y: getCanvasHeight()*0.2,
+    alpha: 0,
+    font: '5rem Fugaz One',
+    color: '#ff0054',
+    shadowBlur: 5,
+  });
 
   const candles = [
-    new Candle(getCanvasWidth()/2 + 80, getCanvasHeight()/2 - 40),
-    new Candle(getCanvasWidth()/2 - 80, getCanvasHeight()/2 - 40),
-    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 + 60),
+    new Candle(getCanvasWidth()/2 + 80, getCanvasHeight()/2 - 40, '#f25f5c'),
+    new Candle(getCanvasWidth()/2 - 80, getCanvasHeight()/2 - 40, '#ffe066'),
+    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 + 60, '#b9e769'),
   ];
 
   const fan = new CandleBlower(getCanvasWidth()/4, getCanvasHeight()/4);
 
   const knife = new Knife(getCanvasWidth()/2 + 150, getCanvasHeight()/2, 80);
-  const arrowStrip = new ArrowStrip(getCanvasWidth()/2 + 350, getCanvasHeight()/2);
+  const arrowStrip = new ArrowStrip(getCanvasWidth()/2 + 400, getCanvasHeight()/2 + 100);
 
-  const birthdayWishText = new Text("Happy Birthday!", getCanvasWidth()/2, getCanvasHeight()*0.25);
 
   function draw() {
     background.draw();
@@ -75,6 +99,7 @@ export default () => {
         knife.draw();
         frontCakeSlice.draw();
         candles.slice(2).forEach(candle => candle.draw());
+        !knife.showPointer && arrowStrip.draw();
         birthdayWishText.draw();
         break;
       }
@@ -107,6 +132,7 @@ export default () => {
 
         if(candles.every(candle => candle.getState() === 'extinguished')) {
           setSceneState(sceneStates.CAKE_CUTTING);
+          resetDrag();
         }
         break;
       }
@@ -117,12 +143,14 @@ export default () => {
         cakeCutText.update();
         birthdayWishText.update();
         const { y } = knife.getPosition();
+        if(knife.isBeingDragged && cakeCutText.alpha === 1) {
+          cakeCutText.hide();
+        }
         if(knife.animate && (y > knife.initY + knife.lowBound - 2)) {
           knife.stopAnimating();
           sendCustomEvent(EventLabels.CAKE, EventNames.CAKE_CUT);
           arrowStrip.fillAll();
-          cakeCutText.hide();
-          birthdayWishText.show();
+          birthdayWishText.show(0.05);
         }
         break;
       }
