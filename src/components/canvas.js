@@ -32,8 +32,8 @@ export default () => {
     radians(180),
   );
 
-  const blowCandleText = new Text("Blow the candles by moving the blower near each candle", getCanvasWidth()/2, getCanvasHeight()*0.75, 1);
-  const cakeCutText = new Text("Cut the cake", getCanvasWidth()/2, getCanvasHeight()*0.75, 1);
+  const blowCandleText = new Text("Blow the candles by moving the blower near each candle", getCanvasWidth()/2, getCanvasHeight()*0.8, 1);
+  const cakeCutText = new Text("Cut the cake", getCanvasWidth()/2, getCanvasHeight()*0.8, 1);
 
   const candles = [
     new Candle(getCanvasWidth()/2 + 80, getCanvasHeight()/2 - 40),
