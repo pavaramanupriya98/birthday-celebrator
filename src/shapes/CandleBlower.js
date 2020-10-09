@@ -5,6 +5,7 @@ import Arrow from "./Arrow";
 
 import { sendDragEvent, EventLabels, EventNames } from "../utils/analytics";
 import callOnce from "../utils/callOnce";
+import Circle from "./Circle";
 
 const sendDragEventOnce = callOnce(sendDragEvent);
 
@@ -17,22 +18,31 @@ export default class CandleBlower extends Shape {
     super();
     this.x = x;
     this.y = y;
+    this.radius = 24;
     this.fillColor = FAN_COLOR;
+    this.showArrow = true;
+    this.rotation = 0;
   }
 
   update() {
     const { mouseX, mouseY } = getMouseCoords();
-    const { x, y } = this;
-    if(mouseX && mouseY) {
+
+    this.updateMouseInteractionStatus();
+
+    if(mouseX && mouseY && this.isBeingDragged) {
       if(
-        x !== mouseX ||
-        y !== mouseY
+        this.x !== mouseX ||
+        this.y !== mouseY
       ) {
         sendDragEventOnce(EventLabels.CAKE, EventNames.BLOWER_DRAGGED);
       }
 
+      this.showArrow = false;
       this.x = mouseX;
       this.y = mouseY;
+      this.rotation += radians(10);
+    } else {
+      this.showArrow = true;
     }
   }
 
@@ -41,23 +51,32 @@ export default class CandleBlower extends Shape {
     return { x, y };
   }
 
-  activate() {
-    this.fillColor = "#00a0fe";
+  hitBoxOptions() {
+    return {
+      type: 'circle',
+      x: this.x,
+      y: this.y,
+      radius: this.radius,
+    }
   }
 
   draw() {
     const { 
-      x, y, ctx, fillColor
+      x, y, rotation, ctx, fillColor, showArrow
     } = this;
     ctx.save();
-
     ctx.fillStyle = fillColor;
     ctx.translate(x, y);
-    ctx.beginPath();
-    ctx.arc(0 , 0, 20, 0, radians(360));
-    ctx.closePath();
-    ctx.fill();
-    Arrow(ctx, 0, -100 + 10*Math.sin(Date.now()/150), true, 0.5);
+    showArrow && Arrow(ctx, 0, -120 + 10*Math.sin(Date.now()/150), true, 0.5);
+    
+    ctx.rotate(rotation);
+    for(let i=0; i < 4; i++) {
+      ctx.rotate(i*radians(90));
+      Circle({
+        ctx, x: 12, y: 0, radius: 12, endAngle: radians(180),
+      });
+    }
+    Circle({ctx, x: 0, y: 0, radius: 4});
     ctx.restore();
 
   }
