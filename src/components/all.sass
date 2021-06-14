@@ -1,6 +1,8 @@
 @import "~bulma/sass/utilities/initial-variables"
 @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Nunito:wght@300&display=swap');
 
+@import "~bulma"
+
 // Config vars
 // Kaldi logo brand color: #FD461E
 $kaldi-red: #D64000
@@ -11,11 +13,23 @@ $primary-invert: $kaldi-red-invert
 $body-color: #333
 $black: #2b2523
 
+$pink: #a9448e
+
 html, body
   margin: 0
   width: 100%
   height: 100%
   overflow: hidden
+  font-size: 16px
+
+@media screen and ( max-width: 800px )
+  html
+    font-size: 14px
+
+@media screen and ( max-width: 400px )
+  html
+    font-size: 12px
+  
 
 
 .navbar .navbar-menu
@@ -131,9 +145,6 @@ $menu-label-color: $white-ter
   margin: 0 1.5em 0 0;
 
 
-@import "~bulma"
-
-
 // responsiveness
 +tablet-only
   .blog-list-item .featured-thumbnail
@@ -158,3 +169,26 @@ $menu-label-color: $white-ter
     text-align: center
     font-size: 2rem
     color: #EE2677
+
+.github-text
+  position: absolute
+  bottom: 20px
+  right: 20px
+  font-size: 1.2em
+  color: $pink
+
+.github-text__icon
+  width: 40px
+  margin: 0 20px
+  background: white
+  border-radius: 50%
+
+.intro-modal__cta-btn
+  background: $pink
+  color: #f0f4ff
+  &:hover
+    color: #f0f4ff
+
+.intro-modal__body-text
+  font-size: 1.2rem
+  

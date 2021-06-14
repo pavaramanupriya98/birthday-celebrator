@@ -1,81 +1,37 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { Link, graphql } from 'gatsby'
+import React, { useEffect, useState } from 'react'
 
 import Layout from '../components/Layout'
 import initCanvas from '../components/canvas';
-import initAudio from '../components/audio';
-import sound from '../assets/Space.mp3';
+import birthdaySound from '../assets/birthday.mp3';
+import IntroModal from '../components/IntroModal';
+import GithubNote from '../components/GithubNote';
 
 const IndexPage = ({ data }) => {
-  const { frontmatter } = data.markdownRemark
+
+  const [playBgMusic, setPlayBgMusic] = useState(false);
 
   useEffect(() => {
-      initAudio();
       initCanvas();
   }, []);
 
   return (
     <Layout>
-      <div
-        className="mobile-placeholder is-hidden-desktop container is-fluid"
-      >
-        <div className="mobile-placeholder__text">
-          Please switch to desktop, birthday person!
-        </div>
-      </div>
-      <div className="is-hidden-touch">
+      <div>
           <canvas />
-          <audio src={sound}/>
+          <IntroModal onCloseModal={() => {setPlayBgMusic(true)}}/>
+          {
+            playBgMusic ? (
+            /* eslint-disable-next-line jsx-a11y/media-has-caption */
+              <audio autoPlay>
+                <source src={birthdaySound} type="audio/mp3" />
+              </audio>
+            ) : null
+          }
+          
+          <GithubNote />
       </div>
     </Layout>
   )
 }
 
-IndexPage.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object,
-    }),
-  }),
-}
-
 export default IndexPage
-
-export const pageQuery = graphql`
-  query IndexPageTemplate {
-    markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
-      frontmatter {
-        title
-        image {
-          childImageSharp {
-            fluid(maxWidth: 2048, quality: 100) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-        heading
-        subheading
-        mainpitch {
-          title
-          description
-        }
-        description
-        intro {
-          blurbs {
-            image {
-              childImageSharp {
-                fluid(maxWidth: 240, quality: 64) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-            text
-          }
-          heading
-          description
-        }
-      }
-    }
-  }
-`

@@ -1,17 +1,18 @@
 import initCanvasDimensions, { getCanvasWidth, getCanvasHeight } from "../utils/dimensions";
-import radians from "../utils/radians";
 import sceneStates, { getSceneState, setSceneState } from "../utils/SceneState";
 
-import Background from '../shapes/Background';
-import Cake from "../shapes/Cake";
-import Knife from "../shapes/Knife";
-import Candle from '../shapes/Candle'
-import CandleBlower from "../shapes/CandleBlower";
-import distance from "../utils/distance";
-import ArrowStrip from "../shapes/ArrowStrip";
-import Text from "../shapes/Text";
+import Background from './shapes/Background';
+import Cake from "./shapes/Cake";
+import Knife from "./shapes/Knife";
+import Candle from './shapes/Candle'
+import CandleBlower from "./shapes/CandleBlower";
+import ArrowStrip from "./shapes/ArrowStrip";
+import Text from "./shapes/Text";
 import { sendCustomEvent, EventLabels, EventNames } from "../utils/analytics";
 import { resetDrag } from "../utils/mouseCoords";
+import { calculateDistance, convertDegreeToRadians } from "../utils/helpers";
+import initAudio from "../utils/audio";
+import birthdaySound from '../assets/cheering.mp3';
 
 export default () => {
   const canvas = document.querySelector('canvas');
@@ -22,7 +23,7 @@ export default () => {
   const backCakeSlice = new Cake(
     getCanvasWidth()/2,
     getCanvasHeight()/2,
-    radians(180),
+    convertDegreeToRadians(180),
     0,
   );
 
@@ -30,7 +31,7 @@ export default () => {
     getCanvasWidth()/2,
     getCanvasHeight()/2,
     0,
-    radians(180),
+    convertDegreeToRadians(180),
   );
 
   const blowCandleText = new Text({
@@ -55,7 +56,7 @@ export default () => {
     x: getCanvasWidth()/2,
     y: getCanvasHeight()*0.2,
     alpha: 0,
-    font: '5rem Fugaz One',
+    font: '3rem Fugaz One',
     color: '#ff0054',
     shadowBlur: 5,
   });
@@ -123,7 +124,7 @@ export default () => {
         blowCandleText.update();
 
         candles.forEach(candle => {
-          if(candle.state === 'burning' && distance(candle.getPosition(), fan.getPosition()) < 40) {
+          if(candle.state === 'burning' && calculateDistance(candle.getPosition(), fan.getPosition()) < 40) {
             candle.extinguish();
             sendCustomEvent(EventLabels.CAKE, EventNames.CANDLE_BLOWN, { id: candle.id });
             blowCandleText.hide();
@@ -151,6 +152,7 @@ export default () => {
           sendCustomEvent(EventLabels.CAKE, EventNames.CAKE_CUT);
           arrowStrip.fillAll();
           birthdayWishText.show(0.05);
+          initAudio(birthdaySound);
         }
         break;
       }
