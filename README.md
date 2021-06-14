@@ -19,7 +19,7 @@ Pulldown a local copy of the Github repository Netlify created for you, with the
 $ git clone https://github.com/[GITHUB_USERNAME]/[REPO_NAME].git
 $ cd [REPO_NAME]
 $ yarn
-$ netlify dev # or ntl dev
+$ npm run develop
 ```
 
 This uses the new [Netlify Dev](https://www.netlify.com/products/dev/?utm_source=blog&utm_medium=netlifycms&utm_campaign=devex) CLI feature to serve any functions you have in the `lambda` folder.
