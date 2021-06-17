@@ -1,17 +1,18 @@
-import initCanvasDimensions, { getCanvasWidth, getCanvasHeight } from "../utils/dimensions";
-import radians from "../utils/radians";
+import initCanvasDimensions, { getCanvasWidth, getCanvasHeight, getScaleX, getScaleXBounded, getScaleY } from "../utils/dimensions";
 import sceneStates, { getSceneState, setSceneState } from "../utils/SceneState";
 
-import Background from '../shapes/Background';
-import Cake from "../shapes/Cake";
-import Knife from "../shapes/Knife";
-import Candle from '../shapes/Candle'
-import CandleBlower from "../shapes/CandleBlower";
-import distance from "../utils/distance";
-import ArrowStrip from "../shapes/ArrowStrip";
-import Text from "../shapes/Text";
+import Background from './shapes/Background';
+import Cake from "./shapes/Cake";
+import Knife from "./shapes/Knife";
+import Candle from './shapes/Candle'
+import CandleBlower from "./shapes/CandleBlower";
+import ArrowStrip from "./shapes/ArrowStrip";
+import Text from "./shapes/Text";
 import { sendCustomEvent, EventLabels, EventNames } from "../utils/analytics";
 import { resetDrag } from "../utils/mouseCoords";
+import { calculateDistance, convertDegreeToRadians } from "../utils/helpers";
+import initAudio from "../utils/audio";
+import birthdaySound from '../assets/cheering.mp3';
 
 export default () => {
   const canvas = document.querySelector('canvas');
@@ -22,7 +23,7 @@ export default () => {
   const backCakeSlice = new Cake(
     getCanvasWidth()/2,
     getCanvasHeight()/2,
-    radians(180),
+    convertDegreeToRadians(180),
     0,
   );
 
@@ -30,15 +31,23 @@ export default () => {
     getCanvasWidth()/2,
     getCanvasHeight()/2,
     0,
-    radians(180),
+    convertDegreeToRadians(180),
   );
 
-  const blowCandleText = new Text({
-    text: "Blow the candles by moving the blower near each candle",
+  const blowCandleText1 = new Text({
+    text: "Blow the candles",
     x: getCanvasWidth()/2,
     y: getCanvasHeight()*0.8,
     alpha: 1,
-    font: '2.5rem Nunito',
+    font: '2rem Nunito',
+    color: '#132743',
+  });
+  const blowCandleText2 = new Text({
+    text: "by moving the blower near each candle",
+    x: getCanvasWidth()/2,
+    y: getCanvasHeight()*0.8 + 20,
+    alpha: 1,
+    font: '1rem Nunito',
     color: '#132743',
   });
   const cakeCutText = new Text({
@@ -46,7 +55,7 @@ export default () => {
     x: getCanvasWidth()/2,
     y: getCanvasHeight()*0.8,
     alpha: 1,
-    font: '2.5rem Nunito',
+    font: '2rem Nunito',
     color: '#132743',
   });
   
@@ -55,21 +64,21 @@ export default () => {
     x: getCanvasWidth()/2,
     y: getCanvasHeight()*0.2,
     alpha: 0,
-    font: '5rem Fugaz One',
+    font: '3rem Fugaz One',
     color: '#ff0054',
     shadowBlur: 5,
   });
 
   const candles = [
-    new Candle(getCanvasWidth()/2 + 80, getCanvasHeight()/2 - 40, '#f25f5c'),
-    new Candle(getCanvasWidth()/2 - 80, getCanvasHeight()/2 - 40, '#ffe066'),
-    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 + 60, '#b9e769'),
+    new Candle(getCanvasWidth()/2 + 80 * getScaleXBounded(), getCanvasHeight()/2 - 40 * getScaleY(), '#f25f5c'),
+    new Candle(getCanvasWidth()/2 - 80 * getScaleXBounded(), getCanvasHeight()/2 - 40 * getScaleY(), '#ffe066'),
+    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 + 60 * getScaleY(), '#b9e769'),
   ];
 
   const fan = new CandleBlower(getCanvasWidth()/4, getCanvasHeight()/4);
 
-  const knife = new Knife(getCanvasWidth()/2 + 150, getCanvasHeight()/2, 80);
-  const arrowStrip = new ArrowStrip(getCanvasWidth()/2 + 400, getCanvasHeight()/2 + 100);
+  const knife = new Knife(getCanvasWidth()/2 + 150 * getScaleXBounded(0.5), getCanvasHeight()/2, 80 * getScaleY());
+  const arrowStrip = new ArrowStrip(getCanvasWidth()/2 + 400 * getScaleX(), getCanvasHeight()/2 + 100 * getScaleY());
 
 
   function draw() {
@@ -84,7 +93,8 @@ export default () => {
       }
 
       case sceneStates.CANDLE_BLOWING: {
-        blowCandleText.draw();
+        blowCandleText1.draw();
+        blowCandleText2.draw();
         backCakeSlice.draw();
         frontCakeSlice.draw();
         candles.forEach(candle => candle.draw());
@@ -120,13 +130,15 @@ export default () => {
           candle.update();
         });
         fan.update();
-        blowCandleText.update();
+        blowCandleText1.update();
+        blowCandleText2.update();
 
         candles.forEach(candle => {
-          if(candle.state === 'burning' && distance(candle.getPosition(), fan.getPosition()) < 40) {
+          if(candle.state === 'burning' && calculateDistance(candle.getPosition(), fan.getPosition()) < 40) {
             candle.extinguish();
             sendCustomEvent(EventLabels.CAKE, EventNames.CANDLE_BLOWN, { id: candle.id });
-            blowCandleText.hide();
+            blowCandleText1.hide();
+            blowCandleText2.hide();
           }
         });
 
@@ -151,6 +163,7 @@ export default () => {
           sendCustomEvent(EventLabels.CAKE, EventNames.CAKE_CUT);
           arrowStrip.fillAll();
           birthdayWishText.show(0.05);
+          initAudio(birthdaySound);
         }
         break;
       }
