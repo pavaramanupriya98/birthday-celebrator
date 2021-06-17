@@ -1,4 +1,4 @@
-import { getScaleX, getScaleY } from "../../utils/dimensions";
+import { getScaleXBounded, getScaleY } from "../../utils/dimensions";
 import { convertDegreeToRadians } from "../../utils/helpers";
 import Shape from "./Shape";
 
@@ -22,7 +22,7 @@ export default class Candle extends Shape {
     this.alpha = 1;
     this.alphaSpeed = 0;
     this.wickLength = 30;
-    this.candleHeight = 70;
+    this.candleHeight = 35;
     this.color = color;
   }
 
@@ -78,7 +78,7 @@ export default class Candle extends Shape {
     ctx.fillStyle = color;
     ctx.translate(x, y - (candleHeight+wickLength)/2);
     // ctx.scale(1, 0.5);
-    ctx.scale(getScaleX(), getScaleY());
+    ctx.scale(getScaleXBounded(0.8), getScaleY());
     ctx.beginPath();
     ctx.moveTo(candleRadius, -candleHeight);
     ctx.arc(0, -candleHeight, candleRadius, 0, convertDegreeToRadians(360));

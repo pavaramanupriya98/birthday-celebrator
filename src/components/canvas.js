@@ -1,4 +1,4 @@
-import initCanvasDimensions, { getCanvasWidth, getCanvasHeight } from "../utils/dimensions";
+import initCanvasDimensions, { getCanvasWidth, getCanvasHeight, getScaleX, getScaleXBounded, getScaleY } from "../utils/dimensions";
 import sceneStates, { getSceneState, setSceneState } from "../utils/SceneState";
 
 import Background from './shapes/Background';
@@ -34,12 +34,20 @@ export default () => {
     convertDegreeToRadians(180),
   );
 
-  const blowCandleText = new Text({
-    text: "Blow the candles by moving the blower near each candle",
+  const blowCandleText1 = new Text({
+    text: "Blow the candles",
     x: getCanvasWidth()/2,
     y: getCanvasHeight()*0.8,
     alpha: 1,
-    font: '2.5rem Nunito',
+    font: '2rem Nunito',
+    color: '#132743',
+  });
+  const blowCandleText2 = new Text({
+    text: "by moving the blower near each candle",
+    x: getCanvasWidth()/2,
+    y: getCanvasHeight()*0.8 + 20,
+    alpha: 1,
+    font: '1rem Nunito',
     color: '#132743',
   });
   const cakeCutText = new Text({
@@ -47,7 +55,7 @@ export default () => {
     x: getCanvasWidth()/2,
     y: getCanvasHeight()*0.8,
     alpha: 1,
-    font: '2.5rem Nunito',
+    font: '2rem Nunito',
     color: '#132743',
   });
   
@@ -62,15 +70,15 @@ export default () => {
   });
 
   const candles = [
-    new Candle(getCanvasWidth()/2 + 80, getCanvasHeight()/2 - 40, '#f25f5c'),
-    new Candle(getCanvasWidth()/2 - 80, getCanvasHeight()/2 - 40, '#ffe066'),
-    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 + 60, '#b9e769'),
+    new Candle(getCanvasWidth()/2 + 80 * getScaleXBounded(), getCanvasHeight()/2 - 40 * getScaleY(), '#f25f5c'),
+    new Candle(getCanvasWidth()/2 - 80 * getScaleXBounded(), getCanvasHeight()/2 - 40 * getScaleY(), '#ffe066'),
+    new Candle(getCanvasWidth()/2, getCanvasHeight()/2 + 60 * getScaleY(), '#b9e769'),
   ];
 
   const fan = new CandleBlower(getCanvasWidth()/4, getCanvasHeight()/4);
 
-  const knife = new Knife(getCanvasWidth()/2 + 150, getCanvasHeight()/2, 80);
-  const arrowStrip = new ArrowStrip(getCanvasWidth()/2 + 400, getCanvasHeight()/2 + 100);
+  const knife = new Knife(getCanvasWidth()/2 + 150 * getScaleXBounded(0.5), getCanvasHeight()/2, 80 * getScaleY());
+  const arrowStrip = new ArrowStrip(getCanvasWidth()/2 + 400 * getScaleX(), getCanvasHeight()/2 + 100 * getScaleY());
 
 
   function draw() {
@@ -85,7 +93,8 @@ export default () => {
       }
 
       case sceneStates.CANDLE_BLOWING: {
-        blowCandleText.draw();
+        blowCandleText1.draw();
+        blowCandleText2.draw();
         backCakeSlice.draw();
         frontCakeSlice.draw();
         candles.forEach(candle => candle.draw());
@@ -121,13 +130,15 @@ export default () => {
           candle.update();
         });
         fan.update();
-        blowCandleText.update();
+        blowCandleText1.update();
+        blowCandleText2.update();
 
         candles.forEach(candle => {
           if(candle.state === 'burning' && calculateDistance(candle.getPosition(), fan.getPosition()) < 40) {
             candle.extinguish();
             sendCustomEvent(EventLabels.CAKE, EventNames.CANDLE_BLOWN, { id: candle.id });
-            blowCandleText.hide();
+            blowCandleText1.hide();
+            blowCandleText2.hide();
           }
         });
 

@@ -1,4 +1,4 @@
-import { getScaleX, getScaleY } from "../../utils/dimensions";
+import { getScaleXBounded, getScaleY } from "../../utils/dimensions";
 import Shape from "./Shape";
 
 export default class CylinderStack extends Shape {
@@ -18,7 +18,7 @@ export default class CylinderStack extends Shape {
     
     ctx.save();
     // ctx.scale(1, 0.5);
-    ctx.scale(getScaleX(), getScaleY());
+    ctx.scale(getScaleXBounded(), 0.5 * getScaleY());
     ctx.beginPath();
     ctx.moveTo(0,0);
     ctx.lineTo(r*Math.cos(startAngle), r*Math.sin(startAngle));
@@ -30,7 +30,7 @@ export default class CylinderStack extends Shape {
 
     ctx.save();
     // ctx.scale(1, 0.5);
-    ctx.scale(getScaleX(), getScaleY());
+    ctx.scale(getScaleXBounded(), 0.5 * getScaleY());
     ctx.beginPath();
     ctx.moveTo(0,0);
     ctx.lineTo(r*Math.cos(endAngle), r*Math.sin(endAngle));
@@ -42,7 +42,7 @@ export default class CylinderStack extends Shape {
 
     ctx.save();
     // ctx.scale(1, 0.5);
-    ctx.scale(getScaleX(), getScaleY());
+    ctx.scale(getScaleXBounded(), 0.5 * getScaleY());
     ctx.beginPath();
     ctx.moveTo(r*Math.cos(startAngle), r*Math.sin(startAngle));
     ctx.lineTo(r*Math.cos(startAngle), r*Math.sin(startAngle)+height);
@@ -58,7 +58,7 @@ export default class CylinderStack extends Shape {
     ctx.lineWidth = 0;
     ctx.save();
     // ctx.scale(1, 0.5);
-    ctx.scale(getScaleX(), getScaleY());
+    ctx.scale(getScaleXBounded(), 0.5 * getScaleY());
     ctx.beginPath();
     ctx.moveTo(r*Math.cos(startAngle), r*Math.sin(startAngle));
     ctx.arc(0, 0, r, startAngle, endAngle);

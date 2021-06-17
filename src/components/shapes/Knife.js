@@ -4,7 +4,7 @@ import Shape from "./Shape";
 import { sendDragEvent, EventLabels, EventNames } from "../../utils/analytics";
 import Arrow from "./Arrow";
 import { callOnce, convertDegreeToRadians } from "../../utils/helpers";
-import { getScaleX, getScaleY } from "../../utils/dimensions";
+import { getScaleXBounded, getScaleY } from "../../utils/dimensions";
 
 const KNIFE_COLOR = '#f1f1f1';
 
@@ -71,7 +71,7 @@ export default class Knife extends Shape {
     ctx.fillStyle = KNIFE_COLOR;
     ctx.beginPath();
     ctx.translate(x, y);
-    ctx.scale(getScaleX(), getScaleY())
+    ctx.scale(getScaleXBounded(), getScaleY())
     // step === 1 && ctx.rotate(convertDegreeToRadians(45));
     // step === 1 && ctx.transform(1, -0.32, 0.25, 1, 0, 0);
     ctx.moveTo(150, -25);

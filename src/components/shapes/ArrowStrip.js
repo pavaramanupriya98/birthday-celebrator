@@ -1,5 +1,6 @@
 import Shape from "./Shape";
 import Arrow from "./Arrow";
+import { getScaleXBounded } from "../../utils/dimensions";
 
 export default class ArrowStrip extends Shape {
   constructor(
@@ -43,7 +44,7 @@ export default class ArrowStrip extends Shape {
     ctx.translate(x, y);
     ctx.globalAlpha = alpha;
     for(let i = 0; i < 3; i++) {
-      Arrow(ctx, 0, 50*i, arrows[i]);
+      Arrow(ctx, 0, 50*i, arrows[i], getScaleXBounded());
     }
     ctx.restore();
   }
