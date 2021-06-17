@@ -19,8 +19,8 @@ const IntroModal = ({ onCloseModal }) => {
                 </header>
                 <section className="modal-card-body">
                     <p className="intro-modal__body-text">
-                        Please share your screen with your friends and let the virtual party begin ! <br/>
-                        ❤ This is a free open source project meant for celebrating birthdays during these covid times ❤ <br/>
+                    ❤ Share your screen with friends and let the virtual party begin ! ❤<br/>
+                    This is an idea meant for celebrating birthdays online during these covid times by cutting a cake simulator <br/>
                     </p>
                 </section>
                 <footer className="modal-card-foot">
