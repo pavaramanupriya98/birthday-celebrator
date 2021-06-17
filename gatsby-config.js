@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: 'Birthday Covid - Celebrate birthday online',
+    title: 'Birthday Covid-19 - Virtual cake simulator website',
     description:
-      'Celebrate birthday online with friends by cutting a virtual cake | BirthdayCovid',
+      'Celebrate birthday online with friends by cutting a virtual cake simulator & other party ideas on this website | BirthdayCovid',
     siteUrl: 'https://birthdaycovid.com'
   },
   plugins: [
