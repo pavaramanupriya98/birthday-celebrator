@@ -20,7 +20,7 @@ const IntroModal = ({ onCloseModal }) => {
                 <section className="modal-card-body">
                     <p className="intro-modal__body-text">
                         Please share your screen with your friends and let the virtual party begin ! <br/>
-                        This is a free open source project meant for celebrating birthdays during these covid times. <br/>
+                        ❤ This is a free open source project meant for celebrating birthdays during these covid times ❤ <br/>
                     </p>
                 </section>
                 <footer className="modal-card-foot">
