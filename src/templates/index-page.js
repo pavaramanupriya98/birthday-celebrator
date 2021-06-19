@@ -28,7 +28,7 @@ const IndexPage = ({ data }) => {
             ) : null
           }
           
-          {/* <GithubNote /> */}
+          <GithubNote />
       </div>
     </Layout>
   )
