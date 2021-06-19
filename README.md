@@ -27,15 +27,6 @@ $ npm run develop
 
 This uses the new [Netlify Dev](https://www.netlify.com/products/dev/?utm_source=blog&utm_medium=netlifycms&utm_campaign=devex) CLI feature to serve any functions you have in the `lambda` folder.
 
-## Getting Started
-
-```
-$ gatsby new [SITE_DIRECTORY_NAME] git@github.com:briashta/birthday-celebrator.git
-$ cd [SITE_DIRECTORY_NAME]
-$ npm run build
-$ npm run serve
-```
-
 ## Debugging
 
 Windows users might encounter `node-gyp` errors when trying to npm install.
