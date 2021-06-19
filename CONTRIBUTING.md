@@ -94,4 +94,4 @@ yarn format
 ## License
 
 By contributing to the birthday celebrator, you agree that your contributions will be licensed
-under its [MIT license](LICENSE).
+under its [GNU GPL license](LICENSE).
