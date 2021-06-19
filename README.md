@@ -1,4 +1,7 @@
 # Birthday Celebrator
+This is a open source initiative meant for celebrating birthdays online during these covid times by cutting a cake simulator.
+
+The site is deployed here: https://birthdaycovid.com
 
 **Note:** This website uses [Gatsby v2](https://www.gatsbyjs.org/blog/2018-09-17-gatsby-v2/).
 
