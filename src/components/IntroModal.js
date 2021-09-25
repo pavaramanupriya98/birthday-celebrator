@@ -19,8 +19,8 @@ const IntroModal = ({ onCloseModal }) => {
                 </header>
                 <section className="modal-card-body">
                     <p className="intro-modal__body-text">
-                    ❤ Share your screen with friends and let the virtual party begin ! ❤<br/>
-                    This is an idea meant for celebrating birthdays online during these covid times by cutting a cake simulator <br/>
+                    ❤ Welcome to Moraspirit 12th Anniversary Virtual Celebration ! ❤<br/>
+                    Here’s to a fabulous Anniversary! May it be filled with love, laughter, and joy. <br/>
                     </p>
                 </section>
                 <footer className="modal-card-foot">

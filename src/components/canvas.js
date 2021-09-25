@@ -40,7 +40,7 @@ export default () => {
     y: getCanvasHeight()*0.8,
     alpha: 1,
     font: '2rem Nunito',
-    color: '#132743',
+    color: '#DA7F0C',
   });
   const blowCandleText2 = new Text({
     text: "by moving the blower near each candle",
@@ -48,7 +48,7 @@ export default () => {
     y: getCanvasHeight()*0.8 + 20,
     alpha: 1,
     font: '1rem Nunito',
-    color: '#132743',
+    color: '#DA7F0C',
   });
   const cakeCutText = new Text({
     text: "Cut the cake",
@@ -56,16 +56,16 @@ export default () => {
     y: getCanvasHeight()*0.8,
     alpha: 1,
     font: '2rem Nunito',
-    color: '#132743',
+    color: '#DA7F0C',
   });
   
   const birthdayWishText = new Text({
-    text: "Happy Birthday!",
+    text: "Happy 12th Anniversary Moraspirit !",
     x: getCanvasWidth()/2,
     y: getCanvasHeight()*0.2,
     alpha: 0,
     font: '3rem Fugaz One',
-    color: '#ff0054',
+    color: '#DA7F0C',
     shadowBlur: 5,
   });
 

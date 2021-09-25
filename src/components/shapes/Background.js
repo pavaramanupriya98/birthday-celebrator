@@ -23,10 +23,8 @@ export default class Background extends Shape {
     ctx.save();
     ctx.clearRect(0, 0, getCanvasWidth(), getCanvasHeight());
     this.setcolorBlocks([
-      {color: '#ffcbcb', height: 40},
-      {color: '#70adb5', height: 45},
-      {color: '#407088', height: 5},
-      {color: '#132743', height: 10},
+      {color: '#0E0D0D', height: 95},
+      
     ]);
     // ctx.fillStyle = '#ffcbcb';
     // ctx.fillRect(0, 0, getCanvasWidth(), getCanvasHeight()*0.4);
